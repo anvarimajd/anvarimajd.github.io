@@ -3,15 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>آموزش پروژه محور React Native - تم طلایی لوکس</title>
+<title>آموزش پروژه محور React Native</title>
 
-<!-- بارگذاری فونت فوق‌العاده زیبای وزیرمتن از گوگل فونت -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
 <style>
-/* تعاریف اولیه و اعمال فونت وزیر */
 *{
     margin: 0;
     padding: 0;
@@ -33,7 +31,6 @@ body {
     margin: auto;
 }
 
-/* تیتر اصلی با فونت ضخیم وزیر و درخشش نئونی طلایی */
 h1 {
     text-align: center;
     margin-bottom: 60px;
@@ -45,7 +42,6 @@ h1 {
     filter: drop-shadow(0 4px 15px rgba(212, 175, 55, 0.25));
 }
 
-/* باکس‌های فصل کاملاً مدرن، شیشه‌ای و پریمیوم */
 .chapter {
     background: rgba(18, 18, 20, 0.65);
     backdrop-filter: blur(14px);
@@ -64,7 +60,6 @@ h1 {
     transform: translateY(-4px);
 }
 
-/* هدر فصل‌ها با حالت مینیمال شیک */
 .chapter-title {
     padding: 24px 28px;
     cursor: pointer;
@@ -84,14 +79,12 @@ h1 {
     color: #ffe082;
 }
 
-/* حالت فعالِ هدر هنگام باز بودن */
 .chapter.open .chapter-title {
     border-bottom: 1px solid rgba(212, 175, 55, 0.12);
     background: rgba(24, 24, 27, 0.8);
     color: #ffe082;
 }
 
-/* آیکون فلش */
 .chapter-title .arrow {
     display: inline-block;
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -99,7 +92,6 @@ h1 {
     color: #d4af37;
 }
 
-/* انیمیشن باز شدن آکاردئون */
 .lessons {
     max-height: 0;
     overflow: hidden;
@@ -108,7 +100,6 @@ h1 {
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* استایل هر تک درس با خط نوری داینامیک در سمت راست هنگام هاور */
 .lesson {
     display: flex;
     justify-content: space-between;
@@ -128,7 +119,6 @@ h1 {
     transform: translateX(-4px);
 }
 
-/* خط طلایی سمت راست هنگام فوکوس روی درس */
 .lesson::after {
     content: '';
     position: absolute;
@@ -155,7 +145,6 @@ h1 {
     gap: 12px;
 }
 
-/* دکمه ۳بعدی و درخشان طلایی برای مشاهده ویدیو */
 .lesson a {
     text-decoration: none;
     background: linear-gradient(135deg, #ffe082 0%, #d4af37 50%, #aa7c11 100%);
@@ -174,7 +163,6 @@ h1 {
     filter: brightness(1.1);
 }
 
-/* بج جدید متحرک ارغوانی-قرمز لوکس */
 .badge {
     background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
     color: #fff;
@@ -186,7 +174,6 @@ h1 {
     animation: pulse 2.5s infinite;
 }
 
-/* مدیریت باز شدن کلاس‌ها */
 .chapter.open .lessons {
     max-height: 1000px;
     padding: 12px 28px 28px 28px;
@@ -196,14 +183,12 @@ h1 {
     transform: rotate(180deg);
 }
 
-/* انیمیشن پالس ملایم برای دکمه جدید */
 @keyframes pulse {
     0% { transform: scale(1); opacity: 0.9; }
     50% { transform: scale(1.04); opacity: 1; filter: drop-shadow(0 0 8px rgba(220, 38, 38, 0.5)); }
     100% { transform: scale(1); opacity: 0.9; }
 }
 
-/* کاملاً ریسپانسیو برای موبایل */
 @media(max-width: 700px) {
     body { padding: 40px 15px; }
     h1 { font-size: 26px; margin-bottom: 40px; }
@@ -225,7 +210,6 @@ h1 {
 
 <div class="container">
 
-    <!-- تغییر هدر اصلی طبق درخواست شما -->
     <h1>آموزش پروژه محور react native</h1>
 
     <div class="chapter">
@@ -236,10 +220,6 @@ h1 {
         <div class="lessons">
             <div class="lesson">
                 <span>گیت هاب پروژه</span>
-                <a href="#">مشاهده</a>
-            </div>
-            <div class="lesson">
-                <span>web editor</span>
                 <a href="#">مشاهده</a>
             </div>
             <div class="lesson">
@@ -260,10 +240,6 @@ h1 {
                 <a href="#">مشاهده</a>
             </div>
             <div class="lesson">
-                <span>web editor</span>
-                <a href="#">مشاهده</a>
-            </div>
-            <div class="lesson">
                 <span>ویدیو آموزش پروژه محور</span>
                 <a href="#">مشاهده</a>
             </div>
@@ -278,10 +254,6 @@ h1 {
         <div class="lessons">
             <div class="lesson">
                 <span>گیت هاب پروژه</span>
-                <a href="#">مشاهده</a>
-            </div>
-            <div class="lesson">
-                <span>web editor</span>
                 <a href="#">مشاهده</a>
             </div>
             <div class="lesson">
@@ -302,10 +274,6 @@ h1 {
                 <a href="#">مشاهده</a>
             </div>
             <div class="lesson">
-                <span>web editor</span>
-                <a href="#">مشاهده</a>
-            </div>
-            <div class="lesson">
                 <span>ویدیو آموزش پروژه محور</span>
                 <a href="#">مشاهده</a>
             </div>
@@ -320,10 +288,6 @@ h1 {
         <div class="lessons">
             <div class="lesson">
                 <span>گیت هاب پروژه</span>
-                <a href="#">مشاهده</a>
-            </div>
-            <div class="lesson">
-                <span>web editor</span>
                 <a href="#">مشاهده</a>
             </div>
             <div class="lesson">
@@ -344,10 +308,6 @@ h1 {
                 <a href="#">مشاهده</a>
             </div>
             <div class="lesson">
-                <span>web editor</span>
-                <a href="#">مشاهده</a>
-            </div>
-            <div class="lesson">
                 <span>ویدیو آموزش پروژه محور</span>
                 <a href="#">مشاهده</a>
             </div>
@@ -362,10 +322,6 @@ h1 {
         <div class="lessons">
             <div class="lesson">
                 <span>گیت هاب پروژه</span>
-                <a href="#">مشاهده</a>
-            </div>
-            <div class="lesson">
-                <span>web editor</span>
                 <a href="#">مشاهده</a>
             </div>
             <div class="lesson">
@@ -386,10 +342,6 @@ h1 {
                 <a href="#">مشاهده</a>
             </div>
             <div class="lesson">
-                <span>web editor</span>
-                <a href="#">مشاهده</a>
-            </div>
-            <div class="lesson">
                 <span>ویدیو آموزش پروژه محور</span>
                 <a href="#">مشاهده</a>
             </div>
@@ -404,10 +356,6 @@ h1 {
         <div class="lessons">
             <div class="lesson">
                 <span>گیت هاب پروژه</span>
-                <a href="#">مشاهده</a>
-            </div>
-            <div class="lesson">
-                <span>web editor</span>
                 <a href="#">مشاهده</a>
             </div>
             <div class="lesson">
