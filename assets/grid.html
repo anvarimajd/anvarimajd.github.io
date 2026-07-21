@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>آموزش جامع و کاربردی CSS Grid</title>
+  
+  <!-- بارگذاری فونت استاندارد Vazirmatn از گوگل فونتز -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    /* تعریف متغیرهای رنگی برای شخصی‌سازی آسان */
+    :root {
+      --primary: #7c3aed;
+      --primary-light: #f5f3ff;
+      --primary-dark: #6d28d9;
+      --bg: #f8fafc;
+      --text-main: #334155;
+      --text-dark: #0f172a;
+      --card-bg: #ffffff;
+      --border-color: #f1f5f9;
+      --demo-bg: #faf5ff;
+      --demo-border: #c084fc;
+    }
+
+    /* تنظیمات عمومی و ریست */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body { 
+      font-family: 'Vazirmatn', sans-serif; 
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.7;
+      padding: 3rem 1rem;
+    }
+
+    /* نگه‌دارنده اصلی صفحه */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* هدر صفحه */
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background-color: var(--primary-light);
+      color: var(--primary-dark);
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.4rem 1rem;
+      border-radius: 9999px;
+      margin-bottom: 1rem;
+    }
+
+    .header h1 {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--text-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .header p {
+      color: #64748b;
+      font-size: 1.1rem;
+    }
+
+    /* باکس‌ها و کارت‌های اطلاعاتی */
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card-title::before {
+      content: "";
+      display: inline-block;
+      width: 6px;
+      height: 24px;
+      background-color: var(--primary);
+      border-radius: 4px;
+    }
+
+    /* سیستم گرید ۲ ستونه ریسپانسیو */
+    .grid-2-col {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .grid-2-col {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* سیستم گرید ۳ ستونه */
+    .grid-3-col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    /* جعبه‌های دمو گرید */
+    .demo-grid { 
+      border: 2px dashed var(--demo-border); 
+      background-color: var(--demo-bg); 
+      padding: 1rem;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+
+    .grid-item { 
+      background: linear-gradient(135deg, #a78bfa, #7c3aed); 
+      color: white; 
+      padding: 1rem; 
+      border-radius: 8px; 
+      text-align: center; 
+      font-weight: bold;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    /* استایل کدبلاک‌ها */
+    pre {
+      background-color: #0f172a;
+      color: #cbd5e1;
+      padding: 1rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      text-align: left;
+      direction: ltr;
+      border: 1px solid #1e293b;
+    }
+
+    code {
+      font-family: monospace;
+      color: #be185d;
+      background-color: #f1f5f9;
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    pre code {
+      color: inherit;
+      background-color: transparent;
+      padding: 0;
+    }
+
+    /* باکس اصطلاحات در بخش مقدمه */
+    .concept-box {
+      background-color: var(--primary-light);
+      padding: 1rem;
+      border-radius: 12px;
+      border: 1px solid #ddd6fe;
+    }
+
+    .concept-box h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 0.25rem;
+    }
+
+    .concept-box p {
+      font-size: 0.8rem;
+      color: var(--text-main);
+    }
+
+    /* بخش ترازبندی‌ها */
+    .align-demo-container {
+      height: 160px;
+    }
+
+    .bg-amber {
+      background-color: #f59e0b;
+      color: white;
+      padding: 0.5rem;
+      border-radius: 6px;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    /* چیدمان بصری (Grid Areas) */
+    .area-visualizer {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+    }
+
+    .area-header  { background-color: #e0e7ff; color: #3730a3; padding: 0.75rem; border-radius: 8px; grid-column: span 3; }
+    .area-sidebar { background-color: #d1fae5; color: #065f46; padding: 1.5rem 0.75rem; border-radius: 8px; }
+    .area-main    { background-color: #dbeafe; color: #1e40af; padding: 1.5rem 0.75rem; border-radius: 8px; grid-column: span 2; display: flex; align-items: center; justify-content: center; }
+    .area-footer  { background-color: #e2e8f0; color: #334155; padding: 0.75rem; border-radius: 8px; grid-column: span 3; }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- هدر صفحه -->
+    <header class="header">
+      <span class="badge">راهنمای جامع توسعه‌دهندگان وب</span>
+      <h1>آموزش عمیق و کاربردی CSS Grid</h1>
+      <p>بررسی تئوری و کارگاهی مفاهیم گرید برای دانشجویان مهندسی کامپیوتر</p>
+    </header>
+
+    <!-- مقدمه و مفاهیم بنیادی -->
+    <section class="card">
+      <h2 class="card-title">CSS Grid چیست؟</h2>
+      <p>
+        گرید یک سیستم چیدمان (Layout) دوبعدی است که کنترل همزمان ردیف‌ها و ستون‌ها را به شما می‌دهد. برخلاف Flexbox که اساساً یک‌بعدی است، CSS Grid برای ساخت ساختارهای کلی صفحه و قالب‌های پیچیده طراحی شده است.
+      </p>
+      
+      <!-- اصطلاحات کلیدی -->
+      <div class="grid-3-col">
+        <div class="concept-box">
+          <h3>خطوط گرید (Grid Lines)</h3>
+          <p>خطوط افقی و عمودی جداکننده که از عدد ۱ شروع شده و مرز خانه‌ها را مشخص می‌کنند.</p>
+        </div>
+        <div class="concept-box">
+          <h3>مسیر گرید (Grid Track)</h3>
+          <p>به فاصله بین دو خط موازی گرید گفته می‌شود که عملاً همان یک ردیف یا یک ستون کامل است.</p>
+        </div>
+        <div class="concept-box">
+          <h3>سلول گرید (Grid Cell)</h3>
+          <p>کوچک‌ترین واحد گرید که از تلاقی یک ردیف و یک ستون به دست می‌آید (مانند خانه‌های اکسل).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- بخش اول: تعریف کانتینر و واحد fr -->
+    <div class="header" style="margin-bottom: 1.5rem; text-align: right;">
+      <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--text-dark);">۱. تعریف کانتینر گرید و واحد Fraction (fr)</h2>
+    </div>
+
+    <section class="grid-2-col">
+      <!-- ستون‌های مساوی -->
+      <div class="card" style="margin-bottom: 0;">
+        <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-dark);">تقسیم مساوی ستون‌ها (1fr 1fr 1fr)</h3>
+        
+        <div class="demo-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem;">
+          <div class="grid-item">۱</div>
+          <div class="grid-item">۲</div>
+          <div class="grid-item">۳</div>
+        </div>
+        
+        <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 0.5rem;">واحد <code>fr</code> مخفف کسر یا سهمی از فضای خالی صفحه است:</p>
+        <pre>
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}</pre>
+      </div>
+
+      <!-- ستون‌های نامساوی -->
+      <div class="card" style="margin-bottom: 0;">
+        <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-dark);">تناسب‌های دلخواه (1fr 2fr 1fr)</h3>
+        
+        <div class="demo-grid" style="display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 0.5rem;">
+          <div class="grid-item">۱</div>
+          <div class="grid-item" style="background: linear-gradient(135deg, #a855f7, #6b21a8);">۲ (فضای دوبرابر)</div>
+          <div class="grid-item">۳</div>
+        </div>
+        
+        <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 0.5rem;">ستون وسط به طور هوشمند و بدون تداخل با فاصله‌ها (gap)، دو برابر بقیه فضا می‌گیرد:</p>
+        <pre>
+.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+}</pre>
+      </div>
+    </section>
+
+    <!-- بخش دوم: ردیف‌ها و توابع پیشرفته -->
+    <section class="card">
+      <h2 class="card-title">۲. ردیف‌ها و توابع کاربردی (repeat & minmax)</h2>
+      
+      <div class="grid-2-col" style="margin-bottom: 0; align-items: start;">
+        <div>
+          <p style="font-size: 0.9rem; margin-bottom: 1rem;">
+            تعریف ردیف‌ها با <code>grid-template-rows</code> انجام می‌شود. برای جلوگیری از تکرار مقادیر و پیاده‌سازی مکانیزم‌های ریسپانسیو، از توابع زیر استفاده می‌شود:
+          </p>
+          <div style="background-color: var(--bg); padding: 1rem; border-radius: 12px; border: 1px solid var(--border-color);">
+            <div style="margin-bottom: 0.75rem;">
+              <span style="display: block; font-size: 0.75rem; font-weight: bold; color: #64748b; margin-bottom: 0.25rem;">تابع repeat (برای تکرار ساده):</span>
+              <code style="display: block; direction: ltr; text-align: left;">grid-template-columns: repeat(3, 1fr);</code>
+            </div>
+            <div style="padding-top: 0.75rem; border-top: 1px solid #e2e8f0;">
+              <span style="display: block; font-size: 0.75rem; font-weight: bold; color: #64748b; margin-bottom: 0.25rem;">تابع minmax (محدوده امن کف و سقف ابعاد):</span>
+              <code style="display: block; direction: ltr; text-align: left;">grid-template-rows: minmax(100px, auto);</code>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <span style="display: block; font-size: 0.75rem; color: #64748b; margin-bottom: 0.5rem;">ایجاد ساختار ریسپانسیو خودکار بدون نیاز به Media Query:</span>
+          <pre>
+.responsive-grid {
+  display: grid;
+  /* ستون‌ها به عرض حداقل 200px می‌رسند 
+     و مابقی فضا را پر می‌کنند */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- بخش سوم: فاصله‌گذاری و ترازبندی -->
+    <div class="header" style="margin-bottom: 1.5rem; text-align: right;">
+      <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--text-dark);">۳. فاصله‌گذاری (gap) و ترازبندی‌ها</h2>
+    </div>
+
+    <section class="grid-2-col">
+      <!-- کنترل فواصل -->
+      <div class="card" style="margin-bottom: 0;">
+        <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-dark);">خاصیت gap</h3>
+        <div class="demo-grid" style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 24px; row-gap: 8px;">
+          <div class="grid-item">۱</div>
+          <div class="grid-item">۲</div>
+          <div class="grid-item">۳</div>
+          <div class="grid-item">۴</div>
+        </div>
+        <pre>
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 8px;      /* فاصله افقی ردیف‌ها */
+  column-gap: 24px;  /* فاصله عمودی ستون‌ها */
+  /* خلاصه نویسی: gap: 8px 24px; */
+}</pre>
+      </div>
+
+      <!-- تراز بندی -->
+      <div class="card" style="margin-bottom: 0;">
+        <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-dark);">تراز بندی افقی و عمودی</h3>
+        <div class="demo-grid align-demo-container" style="display: grid; grid-template-columns: 1fr 1fr; items: center; align-items: center; justify-items: stretch; gap: 0.5rem;">
+          <div class="bg-amber">آیتم Stretch (پیش‌فرض)</div>
+          <div class="bg-amber" style="justify-self: center; width: 80%;">آیتم Center</div>
+        </div>
+        <pre>
+.container {
+  display: grid;
+  align-items: center;      /* تراز عمودی محتوا وسط */
+  justify-items: stretch;   /* تراز افقی کشیده شده */
+}</pre>
+      </div>
+    </section>
+
+    <!-- بخش چهارم: قالب‌بندی تصویری (Grid Areas) -->
+    <section class="card">
+      <h2 class="card-title">۴. چیدمان بصری با grid-template-areas</h2>
+      <p style="font-size: 0.9rem; margin-bottom: 1rem; color: var(--text-main);">
+        قدرتمندترین متد گرید برای ساخت سریع ساختار سایت، تخصیص نام به بخش‌ها و چیدمان بصری آن‌ها در قالب کدهای متنی است:
+      </p>
+
+      <!-- پیش‌نمایش چیدمان گرید اریا -->
+      <div class="area-visualizer">
+        <div class="area-header">هدر (Header)</div>
+        <div class="area-sidebar">سایدبار</div>
+        <div class="area-main">محتوای اصلی سایت</div>
+        <div class="area-footer">فوتر (Footer)</div>
+      </div>
+
+      <pre>
+.layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: auto 1fr auto;
+  /* رسم نقشه ساختار سایت */
+  grid-template-areas:
+    "header header"
+    "sidebar main"
+    "footer footer";
+}
+
+/* انتساب کلاس‌ها به نقشه ترسیم شده */
+header { grid-area: header; }
+aside  { grid-area: sidebar; }
+main   { grid-area: main; }
+footer { grid-area: footer; }</pre>
+    </section>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>آموزش جامع و کاربردی Flexbox</title>
+  
+  <!-- بارگذاری فونت استاندارد Vazirmatn از گوگل فونتز -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    /* تعریف متغیرهای اختصاصی تم آبی مدرن */
+    :root {
+      --primary: #3b82f6;
+      --primary-light: #eff6ff;
+      --primary-dark: #1d4ed8;
+      --bg: #f8fafc;
+      --text-main: #334155;
+      --text-dark: #0f172a;
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+      --demo-bg: #f0f9ff;
+      --demo-border: #93c5fd;
+    }
+
+    /* ریست و آماده‌سازی عمومی */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body { 
+      font-family: 'Vazirmatn', sans-serif; 
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.8;
+      padding: 3rem 1rem;
+    }
+
+    /* نگه‌دارنده اصلی محتوا */
+    .container {
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    /* هدر اصلی صفحه */
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background-color: var(--primary-light);
+      color: var(--primary-dark);
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.4rem 1rem;
+      border-radius: 9999px;
+      margin-bottom: 1rem;
+    }
+
+    .header h1 {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--text-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .header p {
+      color: #64748b;
+      font-size: 1.1rem;
+    }
+
+    /* کارت‌های حاوی توضیحات */
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card-title::before {
+      content: "";
+      display: inline-block;
+      width: 6px;
+      height: 24px;
+      background-color: var(--primary);
+      border-radius: 4px;
+    }
+
+    /* سیستم تک‌ستونه عمودی برای همه بخش‌ها */
+    .stack-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    /* شبکه سه‌ستونه اطلاعات پایه */
+    .grid-3-col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    /* جعبه دموهای پیش‌نمایش */
+    .demo-box { 
+      border: 2px dashed var(--demo-border); 
+      background-color: var(--demo-bg); 
+      padding: 1.25rem;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+
+    .demo-item { 
+      background: linear-gradient(135deg, #60a5fa, #2563eb); 
+      color: white; 
+      padding: 0.8rem 1.2rem; 
+      border-radius: 8px; 
+      text-align: center; 
+      font-weight: bold;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    /* کادر نمایش کدها */
+    pre {
+      background-color: #0f172a;
+      color: #cbd5e1;
+      padding: 1.25rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      text-align: left;
+      direction: ltr;
+      border: 1px solid #1e293b;
+    }
+
+    code {
+      font-family: monospace;
+      color: #be185d;
+      background-color: #f1f5f9;
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    pre code {
+      color: inherit;
+      background-color: transparent;
+      padding: 0;
+    }
+
+    /* باکس معرفی مفاهیم */
+    .concept-box {
+      background-color: var(--primary-light);
+      padding: 1.25rem;
+      border-radius: 12px;
+      border: 1px solid #bfdbfe;
+    }
+
+    .concept-box h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .concept-box p {
+      font-size: 0.85rem;
+      color: var(--text-main);
+    }
+
+    /* استایل‌های کمکی جهت‌های فلکس */
+    .flex-row-example {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .flex-col-example {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .flex-wrap-example {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .align-demo-container {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* کارت‌های محصول انتهای صفحه */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .product-card {
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+      background-color: #fff;
+    }
+
+    .product-image-placeholder {
+      height: 120px;
+      background-color: #f1f5f9;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- هدر صفحه -->
+    <header class="header">
+      <span class="badge">کلاس تعاملی فرانت‌اند</span>
+      <h1>آموزش عمیق و کاربردی CSS Flexbox</h1>
+      <p>راهنمای جامع گام‌به‌گام برای طراحان وب و دانشجویان مهندسی کامپیوتر</p>
+    </header>
+
+    <!-- بخش اصلی آموزش (به صورت کاملاً زیر هم) -->
+    <div class="stack-layout">
+
+      <!-- مقدمه و مفاهیم بنیادی -->
+      <section class="card">
+        <h2 class="card-title">Flexbox چیست؟</h2>
+        <p>
+          مدل چیدمان جعبه منعطف یا <strong>Flexbox</strong> یک سیستم چیدمان یک‌بعدی (داده‌ها به صورت یک ردیف افقی یا یک ستون عمودی قرار می‌گیرند) است. هدف اصلی این معماری، تقسیم فضای هماهنگ، ترازبندی کارآمد و توزیع شناور فضا بین آیتم‌های درون یک کانتینر است؛ حتی زمانی که اندازه آن‌ها نامشخص یا کاملاً پویا باشد.
+        </p>
+        
+        <!-- مفاهیم سه‌گانه اصلی -->
+        <div class="grid-3-col">
+          <div class="concept-box">
+            <h3>محور اصلی (Main Axis)</h3>
+            <p>محوری که فلکس‌آیتم‌ها در طول آن چیده می‌شوند. به طور پیش‌فرض افقی است مگر اینکه جهت تغییر کند.</p>
+          </div>
+          <div class="concept-box">
+            <h3>محور فرعی (Cross Axis)</h3>
+            <p>محور عمود بر محور اصلی. اگر جهت حرکت اصلی شما افقی باشد، ترازهای بالا و پایین روی این محور قرار می‌گیرند.</p>
+          </div>
+          <div class="concept-box">
+            <h3>آیتم‌های فلکس (Flex Items)</h3>
+            <p>فرزندان مستقیم یک کانتینر فلکس که بلافاصله تحت تأثیر رفتارهای کنترلی والد خود قرار می‌گیرند.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- بخش اول: تعریف کانتینر و حالت ردیفی -->
+      <section class="card">
+        <h2 class="card-title">۱. کانتینر و جهت قرارگیری افقی (flex-direction: row)</h2>
+        <p style="margin-bottom: 1rem;">
+          حالت پیش‌فرض فلکس‌باکس که در آن آیتم‌ها در امتداد محور افقی، درست کنار یکدیگر قرار می‌گیرند:
+        </p>
+        
+        <div class="demo-box">
+          <div class="flex-row-example">
+            <div class="demo-item" style="flex: 1;">آیتم ۱</div>
+            <div class="demo-item" style="flex: 1;">آیتم ۲</div>
+            <div class="demo-item" style="flex: 1;">آیتم ۳</div>
+          </div>
+        </div>
+        
+        <pre>
+.container {
+  display: flex;
+  flex-direction: row; /* رفتار پیش‌فرض افقی */
+}</pre>
+      </section>
+
+      <!-- بخش دوم: جهت قرارگیری عمودی -->
+      <section class="card">
+        <h2 class="card-title">۲. کانتینر و جهت قرارگیری عمودی (flex-direction: column)</h2>
+        <p style="margin-bottom: 1rem;">
+          با تغییر محور اصلی به حالت ستونی، چیدمان به صورت عمودی (از بالا به پایین) تغییر مسیر می‌دهد:
+        </p>
+        
+        <div class="demo-box">
+          <div class="flex-col-example">
+            <div class="demo-item">آیتم ۱</div>
+            <div class="demo-item">آیتم ۲</div>
+            <div class="demo-item">آیتم ۳</div>
+          </div>
+        </div>
+        
+        <pre>
+.container {
+  display: flex;
+  flex-direction: column; /* چیدمان ستونی */
+}</pre>
+      </section>
+
+      <!-- بخش سوم: ترازبندی در محور اصلی -->
+      <section class="card">
+        <h2 class="card-title">۳. ترازبندی روی محور اصلی (justify-content)</h2>
+        <p style="margin-bottom: 1.5rem;">
+          خاصیت <code>justify-content</code> نحوه توزیع فضاهای خالی اضافی را در طول محور اصلی کانتینر کنترل می‌کند:
+        </p>
+
+        <!-- Center -->
+        <div style="margin-bottom: 1.5rem;">
+          <span style="font-size: 0.85rem; font-weight: bold; color: #64748b; display: block; margin-bottom: 0.5rem;">تراز در مرکز (center):</span>
+          <div class="demo-box" style="margin-bottom: 0;">
+            <div class="flex-row-example" style="justify-content: center;">
+              <div class="demo-item" style="width: 80px;">A</div>
+              <div class="demo-item" style="width: 80px;">B</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Space-Between -->
+        <div style="margin-bottom: 1.5rem;">
+          <span style="font-size: 0.85rem; font-weight: bold; color: #64748b; display: block; margin-bottom: 0.5rem;">بیشترین فاصله مابین آیتم‌ها (space-between):</span>
+          <div class="demo-box" style="margin-bottom: 0;">
+            <div class="flex-row-example" style="justify-content: space-between;">
+              <div class="demo-item">بخش اول</div>
+              <div class="demo-item">بخش دوم</div>
+              <div class="demo-item">بخش سوم</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Space-Around -->
+        <div style="margin-bottom: 1.5rem;">
+          <span style="font-size: 0.85rem; font-weight: bold; color: #64748b; display: block; margin-bottom: 0.5rem;">تقسیم متقارن فضا پیرامون آیتم‌ها (space-around):</span>
+          <div class="demo-box" style="margin-bottom: 0;">
+            <div class="flex-row-example" style="justify-content: space-around;">
+              <div class="demo-item" style="width: 100px;">آیتم ۱</div>
+              <div class="demo-item" style="width: 100px;">آیتم ۲</div>
+            </div>
+          </div>
+        </div>
+
+        <pre>
+.container {
+  display: flex;
+  justify-content: space-between; 
+  /* مقادیر دیگر: flex-start | flex-end | center | space-around | space-evenly */
+}</pre>
+      </section>
+
+      <!-- بخش چهارم: ترازبندی در محور فرعی -->
+      <section class="card">
+        <h2 class="card-title">۴. ترازبندی روی محور فرعی (align-items)</h2>
+        <p style="margin-bottom: 1rem;">
+          برای هم‌تراز کردن آیتم‌ها در امتداد محور فرعی (محور عمودی در حالت پیش‌فرض) از <code>align-items</code> استفاده می‌کنیم:
+        </p>
+
+        <div class="demo-box">
+          <div class="align-demo-container">
+            <div class="demo-item" style="height: 50px; display: flex; align-items: center; justify-content: center; flex: 1;">ارتفاع ۵۰px</div>
+            <div class="demo-item" style="height: 120px; display: flex; align-items: center; justify-content: center; flex: 1; background: linear-gradient(135deg, #3b82f6, #1d4ed8);">ارتفاع ۱۲۰px</div>
+            <div class="demo-item" style="height: 80px; display: flex; align-items: center; justify-content: center; flex: 1;">ارتفاع ۸۰px</div>
+          </div>
+        </div>
+
+        <pre>
+.container {
+  display: flex;
+  align-items: center; 
+  /* مقادیر دیگر: stretch | flex-start | flex-end | center | baseline */
+}</pre>
+      </section>
+
+      <!-- بخش پنجم: ویژگی‌های سه‌گانه آیتم‌ها -->
+      <section class="card">
+        <h2 class="card-title">۵. ویژگی‌های سه‌گانه منعطف (Grow | Shrink | Basis)</h2>
+        <p style="margin-bottom: 1rem;">
+          آیتمی که ضریب رشد بزرگ‌تری دارد، فضای خالی و آزادِ باقی‌مانده در صفحه را به صورت پویا جذب خواهد کرد:
+        </p>
+        
+        <div class="demo-box">
+          <div class="flex-row-example">
+            <div class="demo-item" style="flex-grow: 1;">رشد ۱ سهم</div>
+            <div class="demo-item" style="flex-grow: 2; background: linear-gradient(135deg, #10b981, #047857);">رشد ۲ سهم (دو برابر)</div>
+            <div class="demo-item" style="width: 80px; flex-shrink: 0;">عرض ثابت</div>
+          </div>
+        </div>
+        
+        <pre>
+.item-1 { flex-grow: 1; }
+.item-2 { flex-grow: 2; } /* سهم دو برابری از فضای خالی */
+.item-3 { width: 80px; flex-shrink: 0; } /* جلوگیری از مچاله شدن */</pre>
+      </section>
+
+      <!-- بخش ششم: کنترل شکست خطوط -->
+      <section class="card">
+        <h2 class="card-title">۶. قابلیت انعطاف خطوط (flex-wrap)</h2>
+        <p style="margin-bottom: 1rem;">
+          به طور پیش‌فرض، آیتم‌ها تا حد فشرده شدن در یک خط قرار می‌گیرند. با کمک <code>wrap</code> به آن‌ها اجازه می‌دهیم به ردیف بعدی هدایت شوند:
+        </p>
+        
+        <div class="demo-box">
+          <div class="flex-wrap-example">
+            <div class="demo-item" style="width: 140px;">آیتم الف</div>
+            <div class="demo-item" style="width: 140px;">آیتم ب</div>
+            <div class="demo-item" style="width: 140px;">آیتم ج</div>
+            <div class="demo-item" style="width: 140px;">آیتم د</div>
+            <div class="demo-item" style="width: 140px;">آیتم هـ</div>
+          </div>
+        </div>
+        
+        <pre>
+.container {
+  display: flex;
+  flex-wrap: wrap; /* پرش هوشمند به خط بعد */
+}</pre>
+      </section>
+
+      <!-- بخش هفتم: مثال واقعی -->
+      <section class="card">
+        <h2 class="card-title">۷. مثال واقعی: ساختار گرید محصولات</h2>
+        <p>
+          در مثال کاربردی زیر از ترکیب خصوصیات فلکس برای ساخت کارت‌های محصولات هم‌اندازه به صورت ریسپانسیو و استاندارد استفاده شده است:
+        </p>
+
+        <div class="products-grid">
+          <div class="product-card">
+            <div class="product-image-placeholder"></div>
+            <h3 style="font-size: 1rem; color: var(--text-dark); margin-bottom: 0.25rem;">محصول شماره ۱</h3>
+            <p style="color: #10b981; font-weight: bold; font-size: 0.9rem;">۲,۵۰۰,۰۰۰ تومان</p>
+          </div>
+          <div class="product-card">
+            <div class="product-image-placeholder"></div>
+            <h3 style="font-size: 1rem; color: var(--text-dark); margin-bottom: 0.25rem;">محصول شماره ۲</h3>
+            <p style="color: #10b981; font-weight: bold; font-size: 0.9rem;">۳,۸۰۰,۰۰۰ تومان</p>
+          </div>
+          <div class="product-card">
+            <div class="product-image-placeholder"></div>
+            <h3 style="font-size: 1rem; color: var(--text-dark); margin-bottom: 0.25rem;">محصول شماره ۳</h3>
+            <p style="color: #10b981; font-weight: bold; font-size: 0.9rem;">۱,۲۰۰,۰۰۰ تومان</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+</body>
+</html>

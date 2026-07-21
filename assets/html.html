@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>کارگاه عملی و جذاب HTML5 — از صفر تا ورود به دنیای وب</title>
+  
+  <!-- بارگذاری فونت استاندارد Vazirmatn از گوگل فونتز -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    /* تعریف پالت رنگی و متغیرهای مدرن CSS */
+    :root {
+      --primary: #0284c7;
+      --primary-light: #f0f9ff;
+      --primary-dark: #0369a1;
+      --accent: #f59e0b;
+      --bg: #f8fafc;
+      --text-main: #334155;
+      --text-dark: #0f172a;
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+      --code-bg: #0f172a;
+      --code-text: #f8fafc;
+    }
+
+    /* ریست عمومی برای ایجاد هماهنگی در تمامی مرورگرها */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body { 
+      font-family: 'Vazirmatn', sans-serif; 
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.8;
+      padding: 3rem 1rem;
+    }
+
+    /* نگه‌دارنده مرکزی محتوا */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* استایل هدر بالای صفحه */
+    .header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background-color: var(--primary-light);
+      color: var(--primary-dark);
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.4rem 1.2rem;
+      border-radius: 9999px;
+      margin-bottom: 1rem;
+      border: 1px solid #bae6fd;
+    }
+
+    .header h1 {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: var(--text-dark);
+      margin-bottom: 0.75rem;
+    }
+
+    .header p {
+      color: #64748b;
+      font-size: 1.1rem;
+    }
+
+    /* کارت‌های سرفصل‌ها (بخش‌های زیر هم) */
+    .chapter-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 2.5rem;
+      margin-bottom: 3rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    }
+
+    .chapter-num {
+      font-size: 0.9rem;
+      font-weight: 900;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .chapter-title {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--text-dark);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .chapter-title::before {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 30px;
+      background-color: var(--primary);
+      border-radius: 4px;
+    }
+
+    /* استایل خروجی‌های شبیه‌سازی شده (Live Demo) */
+    .demo-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #64748b;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .demo-box {
+      border: 2px dashed #93c5fd;
+      background-color: #f0f9ff;
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+    }
+
+    /* استایل کادرهای نمایش کد */
+    pre {
+      background-color: var(--code-bg);
+      color: var(--code-text);
+      padding: 1.25rem;
+      border-radius: 12px;
+      font-family: monospace;
+      font-size: 0.9rem;
+      overflow-x: auto;
+      text-align: left;
+      direction: ltr;
+      border: 1px solid #1e293b;
+      margin-bottom: 1.5rem;
+    }
+
+    code {
+      font-family: monospace;
+      color: #be185d;
+      background-color: #f1f5f9;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    pre code {
+      color: inherit;
+      background-color: transparent;
+      padding: 0;
+    }
+
+    /* نکات ویژه علمی و کاربردی */
+    .note-box {
+      background-color: #fef3c7;
+      border-right: 5px solid var(--accent);
+      padding: 1.25rem;
+      border-radius: 8px;
+      margin-top: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .note-box strong {
+      color: #b45309;
+    }
+
+    /* استایل جداول */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      border: 1px solid var(--border-color);
+      padding: 0.75rem 1rem;
+      text-align: right;
+    }
+
+    th {
+      background-color: var(--primary-light);
+      color: var(--primary-dark);
+      font-weight: 700;
+    }
+
+    /* فرم‌های دمو */
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.25rem;
+      font-size: 0.9rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.6rem;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-family: inherit;
+    }
+
+    .btn-submit {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: bold;
+    }
+
+    .btn-submit:hover {
+      background-color: var(--primary-dark);
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- هدر کل صفحه -->
+    <header class="header">
+      <span class="badge">دوره جامع فرانت‌اند وب</span>
+      <h1>کارگاه عملی و تعاملی آموزش HTML5</h1>
+      <p>یادگیری گام‌به‌گام مفاهیم پایه، تگ‌ها، رسانه، فرم‌ها و اصول سئو با طعم مثال‌های کاربردی</p>
+    </header>
+
+    <!-- شروع فصول به صورت کاملاً زیر هم -->
+    <div class="chapters-wrapper">
+
+      <!-- فصل اول -->
+      <section class="chapter-card">
+        <span class="chapter-num">فصل اول</span>
+        <h2 class="chapter-title">آشنایی با دنیای وب و وب‌سایت‌ها</h2>
+        
+        <h3 style="margin-top: 1rem; font-size: 1.1rem; font-weight: bold;">HTML چیست و چه کاربردی دارد؟</h3>
+        <p style="margin-bottom: 1rem;">
+          زبان HTML مخفف <strong>HyperText Markup Language</strong> (زبان نشانه‌گذاری ابرمتن) است. دقت کنید که HTML یک زبان برنامه‌نویسی محاسباتی نیست، بلکه ساختار و اسکلت اصلی صفحات وب را تعریف می‌کند. اگر وب‌سایت را به یک ساختمان تشبیه کنیم، HTML نقش آجر، ستون‌ها و دیوارهای بتنی آن را ایفا می‌کند.
+        </p>
+
+        <h3 style="font-size: 1.1rem; font-weight: bold; margin-top: 1.5rem;">HTML چگونه کار می‌کند؟</h3>
+        <p style="margin-bottom: 1.5rem;">
+          مرورگر وب شما (مانند کروم، فایرفاکس یا اج) کدهای متنی HTML را خط‌به‌خط می‌خواند، آن‌ها را تفسیر کرده و خروجی را به صورت بصری و زیبا به کاربر نمایش می‌دهد. به این فرآیند اصطلاحاً رندرینگ (Rendering) می‌گویند.
+        </p>
+
+        <div class="note-box">
+          <strong>معرفی مرورگرها و ابزار توسعه (Developer Tools):</strong> با فشردن کلید <code>F12</code> یا کلیک راست روی هر صفحه وب و انتخاب گزینه <code>Inspect</code> می‌توانید پشت صحنه کدهای سایت‌ها را در تب Elements ببینید و آن‌ها را به صورت زنده تغییر دهید.
+        </div>
+
+        <div class="note-box" style="background-color: #ecfdf5; border-right-color: #10b981;">
+          <strong>آشنایی با VS Code:</strong> نرم‌افزار <strong>Visual Studio Code</strong> محبوب‌ترین محیط ویرایش کد است. شما می‌توانید با نوشتن کاراکتر علامت تعجب (<code>!</code>) و فشردن دکمه <code>Tab</code>، به لطف ابزار داخلی Emmet کل اسکلت پایه یک صفحه وب را در یک ثانیه ایجاد کنید!
+        </div>
+      </section>
+
+      <!-- فصل دوم -->
+      <section class="chapter-card">
+        <span class="chapter-num">فصل دوم</span>
+        <h2 class="chapter-title">تگ‌ها و مفاهیم پایه</h2>
+        
+        <p style="margin-bottom: 1rem;">
+          هر چیزی در HTML به کمک <strong>تگ‌ها (Tags)</strong> ساخته می‌شود. تگ‌ها مشخص می‌کنند چه المانی با چه ویژگی‌هایی در صفحه قرار بگیرد.
+        </p>
+
+        <h3 style="font-size: 1.1rem; font-weight: bold; margin-top: 1.5rem;">۱. تگ‌های جفت و ویژگی‌ها (Attributes)</h3>
+        <p style="margin-bottom: 1rem;">
+          بسیاری از تگ‌ها دارای بخش بازکننده <code>&lt;tag&gt;</code> و بخش بسته‌کننده <code>&lt;/tag&gt;</code> هستند. ویژگی‌ها همیشه در تگ بازکننده نوشته می‌شوند:
+        </p>
+
+        <pre>
+<code>&lt;p align="center"&gt;این یک پاراگراف وسط‌چین شده است.&lt;/p&gt;</code></pre>
+
+        <h3 style="font-size: 1.1rem; font-weight: bold; margin-top: 1.5rem;">۲. تگ‌های خطی (Inline) در برابر تگ‌های بلوکی (Block)</h3>
+        <ul style="margin-right: 1.5rem; margin-bottom: 1rem;">
+          <li><strong>تگ‌های بلوکی (Block-Level):</strong> کل عرض ردیف را اشغال کرده و تگ بعدی را به خط جدید می‌فرستند (مانند <code>&lt;p&gt;</code> یا <code>&lt;div&gt;</code>).</li>
+          <li><strong>تگ‌های خطی (Inline-Level):</strong> فقط به اندازه محتوای درونی‌شان فضا اشغال می‌کنند و به خط بعد نمی‌روند (مانند <code>&lt;span&gt;</code> یا <code>&lt;strong&gt;</code>).</li>
+        </ul>
+
+        <h3 style="font-size: 1.1rem; font-weight: bold; margin-top: 1.5rem;">۳. کامنت‌گذاری در کد</h3>
+        <p style="margin-bottom: 1rem;">کامنت‌ها توسط مرورگر نادیده گرفته می‌شوند و صرفاً جهت راهنمایی شما یا هم‌تیمی‌هایتان هستند:</p>
+        <pre>
+<code>&lt;!-- این یک کامنت در اچ‌تی‌ام‌ال است و در خروجی ظاهر نمی‌شود --&gt;</code></pre>
+      </section>
+
+      <!-- فصل سوم -->
+      <section class="chapter-card">
+        <span class="chapter-num">فصل سوم</span>
+        <h2 class="chapter-title">تگ‌های متنی و آرایش متن</h2>
+        
+        <p style="margin-bottom: 1.5rem;">ما از تگ‌های متنی برای ایجاد ساختار در عناوین، پاراگراف‌ها و تغییر شیوه نمایش کلمات استفاده می‌کنیم.</p>
+
+        <span class="demo-label">کدهای بخش متنی:</span>
+        <pre>
+<code>&lt;h1&gt;عنوان بزرگ اصلی (H1)&lt;/h1&gt;
+&lt;h3&gt;عنوان فرعی کوچک‌تر (H3)&lt;/h3&gt;
+&lt;p&gt;
+  این یک پاراگراف ساده است که شامل کلمات &lt;strong&gt;مهم و ضخیم&lt;/strong&gt;، 
+  کلمات &lt;em&gt;کج و تاکید شده&lt;/em&gt; و بخشی با &lt;mark&gt;پس‌زمینه رنگی&lt;/mark&gt; است.
+  همچنین می‌توان از تگ &lt;span&gt;برای اعمال استایل‌های خاص به بخش‌های کوچک&lt;/span&gt; استفاده کرد.
+&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;تگ br خط را می‌شکند&lt;br&gt;و ما را به خط جدید هدایت می‌کند.&lt;/p&gt;</code></pre>
+
+        <span class="demo-label">خروجی زنده رندر شده در صفحه:</span>
+        <div class="demo-box">
+          <h1 style="font-size: 1.8rem; font-weight: bold;">عنوان بزرگ اصلی (H1)</h1>
+          <h3 style="font-size: 1.2rem; font-weight: bold; margin-top: 0.5rem;">عنوان فرعی کوچک‌تر (H3)</h3>
+          <p style="margin-top: 1rem;">
+            این یک پاراگراف ساده است که شامل کلمات <strong>مهم و ضخیم</strong>، 
+            کلمات <em>کج و تاکید شده</em> و بخشی با <mark>پس‌زمینه رنگی</mark> است.
+            همچنین می‌توان از تگ <span style="color: var(--primary); font-weight: bold;">span برای اعمال استایل‌های خاص به بخش‌های کوچک</span> استفاده کرد.
+          </p>
+          <hr style="margin: 1rem 0; border: 0; border-top: 1px solid var(--border-color);">
+          <p>تگ br خط را می‌شکند<br>و ما را به خط جدید هدایت می‌کند.</p>
+        </div>
+      </section>
+
+      <!-- فصل چهارم -->
+      <section class="chapter-card">
+        <span class="chapter-num">فصل چهارم</span>
+        <h2 class="chapter-title">کار با لینک‌ها و مسیرها (Navigation)</h2>
+        
+        <p style="margin-bottom: 1rem;">
+          اتصالات صفحات وب به یکدیگر به کمک تگ لینک <code>&lt;a&gt;</code> صورت می‌پذیرد.
+        </p>
+
+        <h3 style="font-size: 1.1rem; font-weight: bold; margin-top: 1.5rem;">۱. مسیر مطلق و مسیر نسبی</h3>
+        <ul style="margin-right: 1.5rem; margin-bottom: 1rem;">
+          <li><strong>مسیر مطلق (Absolute):</strong> آدرس کامل اینترنتی با پروتکل HTTP/HTTPS (مانند: <code>https://google.com</code>)</li>
+          <li><strong>مسیر نسبی (Relative):</strong> آدرس‌دهی بر اساس موقعیت فایل فعلی در پوشه‌های پروژه (مانند: <code>/about.html</code>)</li>
+        </ul>
+
+        <span class="demo-label">مثال‌های کاربردی لینک‌دهی:</span>
+        <pre>
+<code>&lt;!-- باز کردن لینک در تب جدید با استفاده از target="_blank" --&gt;
+&lt;a href="https://google.com" target="_blank"&gt;ورود به سایت گوگل در تب جدید&lt;/a&gt;
+
+&lt;!-- ایجاد لینک لنگر (Anchor Link) برای جهش به بخش خاصی از همین صفحه --&gt;
+&lt;a href="#chapter-ten"&gt;پرش مستقیم به فصل دهم&lt;/a&gt;</code></pre>
+      </section>
+
+      <!-- فصل پنجم -->
+      <section class="chapter-card">
+        <span class="chapter-num">فصل پنجم</span>
+        <h2 class="chapter-title">تصاویر، ویدیو و فایل‌های صوتی</h2>
+        
+        <p style="margin-bottom: 1rem;">
+          رسانه‌های تعاملی، جان تازه‌ای به صفحات خسته‌کننده متنی وب می‌بخشند.
+        </p>
+
+        <h3 style="font-size: 1.1rem; font-weight: bold;">تگ تصویر و ویژگی‌های حیاتی آن</h3>
+        <p style="margin-bottom: 1rem;">
+          تگ <code>&lt;img&gt;</code> از نوع تک (Self-closing) است. ویژگی <code>alt</code> برای بهبود سئو و افرادی که مشکل بینایی دارند بی‌نهایت مهم است.
+        </p>
+
+        <span class="demo-label">ساختار تصاویر و مدیا در کد:</span>
+        <pre>
+<code>&lt;!-- بارگذاری عکس --&gt;
+&lt;img src="https://picsum.photos/400/200" alt="یک تصویر تصادفی زیبا" width="100%" style="border-radius: 8px;"&gt;
+
+&lt;!-- بارگذاری پخش‌کننده صوتی --&gt;
+&lt;audio controls&gt;
+  &lt;source src="music.mp3" type="audio/mpeg"&gt;
+  مرورگر شما از پخش صدا پشتیبانی نمی‌کند.
+&lt;/audio&gt;
+
+&lt;!-- بارگذاری پخش‌کننده ویدیو همراه با کاور (پوستر) --&gt;
+&lt;video width="100%" controls poster="cover.jpg" preload="none"&gt;
+  &lt;source src="video.mp4" type="video/mp4"&gt;
+  مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
+&lt;/video&gt;</code></pre>
+
+        <span class="demo-label">خروجی زنده شبیه‌سازی شده:</span>
+        <div class="demo-box">
+          <img src="https://picsum.photos/800/300" alt="یک تصویر تصادفی زیبا" style="width: 100%; height: auto; display: block; border-radius: 8px; margin-bottom: 1rem;">
+          <p style="font-size: 0.85rem; color: #64748b;">نمونه یک تصویر رندر شده با آدرس URL اینترنتی</p>
+        </div>
+      </section>
+
+      <!-- فصل ششم -->
+      <section class="chapter-card">
+        <span class="chapter-num">فصل ششم</span>
+        <h2 class="chapter-title">انواع لیست‌ها در HTML</h2>
+        
+        <p style="margin-bottom: 1rem;">ما در ساختار صفحات وب از سه مدل لیست اصلی استفاده می‌کنیم:</p>
+
+        <span class="demo-label">کدهای ساخت لیست:</span>
+        <pre>
+<code>&lt;!-- ۱. لیست نامرتب (بولت‌دار) --&gt;
+&lt;ul&gt;
+  &lt;li&gt;زبان برنامه‌نویسی پایتون&lt;/li&gt;
+  &lt;li&gt;زبان طراحی وب جاوااسکریپت&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- ۲. لیست مرتب شده (عددی) --&gt;
+&lt;ol&gt;
+  &lt;li&gt;ثبت‌نام در دوره آموزشی&lt;/li&gt;
+  &lt;li&gt;شروع به یادگیری تئوری&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;!-- ۳. لیست توضیحی (واژه‌نامه) --&gt;
+&lt;dl&gt;
+  &lt;dt&gt;HTML&lt;/dt&gt;
+  &lt;dd&gt;زبان نشانه‌گذاری اسکلت سایت&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+
+        <span class="demo-label">نمونه لیست‌های ساخته شده در صفحه:</span>
+        <div class="demo-box">
+          <h4 style="font-weight: bold; margin-bottom: 0.5rem;">لیست‌های چندگانه</h4>
+          <ul style="margin-right: 1.5rem; margin-bottom: 1rem;">
+            <li>زبان برنامه‌نویسی پایتون</li>
+            <li>زبان طراحی وب جاوااسکریپت</li>
+          </ul>
+          <ol style="margin-right: 1.5rem; margin-bottom: 1rem;">
+            <li>ثبت‌نام در دوره آموزشی</li>
+            <li>شروع به یادگیری تئوری</li>
+          </ol>
+          <dl style="border-right: 3px solid var(--primary); padding-right: 0.75rem;">
+            <dt style="font-weight: bold; color: var(--primary-dark);">HTML</dt>
+            <dd style="font-size: 0.9rem; color: #475569;">زبان نشانه‌گذاری اسکلت سایت</dd>
+          </dl>
+        </div>
+      </section>
+
+      <!-- فصل هفتم -->
+      <section class="chapter-card">
+        <span class="chapter-num">فصل هفتم</span>
+        <h2 class="chapter-title">جدول‌ها و ادغام سلول‌ها (Tables)</h2>
+        
+        <p style="margin-bottom: 1rem;">جدول‌ها برای نمایش اطلاعات مرتب و مقایسه‌ای استفاده می‌شوند. به کمک خصوصیات <code>colspan</code> و <code>rowspan</code> می‌توانیم ستون‌ها و ردیف‌ها را در هم ادغام کنیم.</p>
+
+        <span class="demo-label">نمونه کدهای جدول استاندارد:</span>
+        <pre>
+<code>&lt;table&gt;
+  &lt;caption&gt;جدول ساعت کلاسی کارگاه فرانت‌اند&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;روز هفته&lt;/th&gt;
+      &lt;th&gt;ساعت شروع&lt;/th&gt;
+      &lt;th&gt;موضوع جلسه&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;شنبه&lt;/td&gt;
+      &lt;td colspan="2" style="text-align: center;"&gt;کارگاه ادغام شده (۱۰ الی ۱۴)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;دوشنبه&lt;/td&gt;
+      &lt;td&gt;۱۶:۰۰&lt;/td&gt;
+      &lt;td&gt;مباحث شیءگرایی در وب&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+
+        <span class="demo-label">خروجی زنده جدول ادغام شده:</span>
+        <div class="demo-box" style="overflow-x: auto;">
+          <table>
+            <caption style="font-weight: bold; margin-bottom: 0.5rem;">جدول ساعت کلاسی کارگاه فرانت‌اند</caption>
+            <thead>
+              <tr>
+                <th>روز هفته</th>
+                <th>ساعت شروع</th>
+                <th>موضوع جلسه</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>شنبه</td>
+                <td colspan="2" style="text-align: center; font-weight: bold; background-color: #f8fafc;">کارگاه فشرده ادغام شده (۱۰ الی ۱۴)</td>
+              </tr>
+              <tr>
+                <td>دوشنبه</td>
+                <td>۱۶:۰۰</td>
+                <td>مباحث شیءگرایی در وب</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- فصل هشتم -->
+      <section class="chapter-card">
+        <span class="chapter-num">فصل هشتم</span>
+        <h2 class="chapter-title">ساختاربندی صفحات به روش معنایی (Semantic)</h2>
+        
+        <p style="margin-bottom: 1rem;">
+          در گذشته از تگ عمومی <code>&lt;div&gt;</code> برای ساخت تمامی بخش‌ها استفاده می‌شد که برای موتورهای جستجو نامفهوم بود. امروزه در HTML5 از تگ‌های معنایی یا همان <strong>Semantic Tags</strong> استفاده می‌شود که ساختار سایت را برای ربات‌های گوگل به شدت خوانا می‌کند.
+        </p>
+
+        <div style="background-color: #f1f5f9; padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem;">
+          <h4 style="font-weight: bold; margin-bottom: 0.5rem;">ساختار یک صفحه استاندارد:</h4>
+          <ul style="margin-right: 1.5rem; font-size: 0.9rem;">
+            <li><code>&lt;header&gt;</code>: سربرگ بالای سایت شامل لوگو و نام وب‌سایت.</li>
+            <li><code>&lt;nav&gt;</code>: بخش منوهای ناوبری و هدایتگر اصلی کاربر.</li>
+            <li><code>&lt;main&gt;</code>: بدنه محتوای منحصر‌به‌فرد صفحه کنونی.</li>
+            <li><code>&lt;section&gt;</code>: دسته‌بندی موضوعی یا بخش‌های مختلف درون صفحه.</li>
+            <li><code>&lt;article&gt;</code>: محتوای مستقل مانند پست وبلاگ یا اخبار.</li>
+            <li><code>&lt;aside&gt;</code>: سایدبار جانبی با محتوای فرعی نظیر بنرهای تبلیغاتی.</li>
+            <li><code>&lt;footer&gt;</code>: بخش پابرگ شامل کپی‌رایت و لینک شبکه‌های اجتماعی.</li>
+          </ul>
+        </div>
+
+        <pre>
+<code>&lt;!-- نمونه کد یک ساختار معنایی اصولی --&gt;
+&lt;main&gt;
+  &lt;article&gt;
+    &lt;header&gt;
+      &lt;h2&gt;عنوان مقاله علمی جدید&lt;/h2&gt;
+    &lt;/header&gt;
+    &lt;p&gt;متن این مقاله علمی در اینجا قرار می‌گیرد...&lt;/p&gt;
+  &lt;/article&gt;
+&lt;/main&gt;</code></pre>
+      </section>
+
+      <!-- فصل نهم -->
+      <section class="chapter-card">
+        <span class="chapter-num">فصل نهم</span>
+        <h2 class="chapter-title">فرم‌ها و ابزارهای دریافت اطلاعات (Forms)</h2>
+        
+        <p style="margin-bottom: 1.5rem;">فرم‌ها پل ارتباطی کاربران با سرور برای ارسال انواع اطلاعات، رمزهای عبور، فایل‌ها و نظرات هستند.</p>
+
+        <span class="demo-label">نمونه کدهای یک فرم ثبت‌نام فوق‌العاده جامع:</span>
+        <pre>
+<code>&lt;form action="/submit-register" method="POST"&gt;
+  &lt;fieldset&gt;
+    &lt;legend&gt;اطلاعات حساب کاربری&lt;/legend&gt;
+    
+    &lt;!-- تگ label همراه با شناسه منحصربه‌فرد برای فیلد ورودی --&gt;
+    &lt;label for="username"&gt;نام کاربری:&lt;/label&gt;
+    &lt;input type="text" id="username" placeholder="مثال: amir_web" required&gt;
+    
+    &lt;label for="email"&gt;ایمیل:&lt;/label&gt;
+    &lt;input type="email" id="email" required&gt;
+
+    &lt;label for="age"&gt;سن:&lt;/label&gt;
+    &lt;input type="number" id="age" min="18" max="99"&gt;
+
+    &lt;label&gt;نوع عضویت:&lt;/label&gt;
+    &lt;select&gt;
+      &lt;option value="gold"&gt;طلایی (ویژه)&lt;/option&gt;
+      &lt;option value="free"&gt;ساده رایگان&lt;/option&gt;
+    &lt;/select&gt;
+
+    &lt;button type="submit" class="btn-submit"&gt;تکمیل ثبت‌نام&lt;/button&gt;
+  &lt;/fieldset&gt;
+&lt;/form&gt;</code></pre>
+
+        <span class="demo-label">شبیه‌ساز فرم رندر شده در وب:</span>
+        <div class="demo-box">
+          <form onsubmit="event.preventDefault(); alert('فرم با موفقیت ارسال شد!');">
+            <fieldset style="border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 8px;">
+              <legend style="font-weight: bold; padding: 0 0.5rem; color: var(--primary);">ثبت‌نام سریع در دوره</legend>
+              
+              <div class="form-group">
+                <label for="usr">نام کاربری (الزامی):</label>
+                <input type="text" id="usr" class="form-control" placeholder="مثال: web_developer" required>
+              </div>
+
+              <div class="form-group">
+                <label for="mail">آدرس ایمیل:</label>
+                <input type="email" id="mail" class="form-control" placeholder="info@example.com">
+              </div>
+
+              <div class="form-group">
+                <label for="theme">انتخاب رنگ پس‌زمینه داشبورد شما:</label>
+                <input type="color" id="theme" style="width: 100%; height: 40px; border-radius: 6px; border: 1px solid var(--border-color); cursor: pointer;">
+              </div>
+
+              <button type="submit" class="btn-submit" style="margin-top: 1rem;">ثبت اطلاعات تستی</button>
+            </fieldset>
+          </form>
+        </div>
+      </section>
+
+      <!-- فصل دهم -->
+      <section class="chapter-card" id="chapter-ten">
+        <span class="chapter-num">فصل دهم</span>
+        <h2 class="chapter-title">متا تگ‌ها و المان‌های تکمیلی (Head / SEO)</h2>
+        
+        <p style="margin-bottom: 1rem;">
+          متا تگ‌ها در تگ <code>&lt;head&gt;</code> نوشته می‌شوند و به صورت مستقیم به کاربر نمایش داده نمی‌شوند، بلکه دستورالعمل‌های سئو، طراحی ریسپانسیو و شناسه‌های فنی موتورهای جستجو را تعیین می‌کنند.
+        </p>
+
+        <span class="demo-label">مهم‌ترین تگ‌های بخش head در طراحی وب:</span>
+        <pre>
+<code>&lt;head&gt;
+  &lt;!-- ۱. تنظیم انکودینگ کاراکترها برای پشتیبانی کامل از حروف فارسی --&gt;
+  &lt;meta charset="UTF-8"&gt;
+
+  &lt;!-- ۲. تنظیم عرض صفحه برای هماهنگی و واکنش‌گرایی در تبلت و موبایل --&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+
+  &lt;!-- ۳. توضیحات سئو برای بخش نتایج جستجوی گوگل --&gt;
+  &lt;meta name="description" content="کامل‌ترین آموزش وب و اچ‌تی‌ام‌ال به زبان ساده"&gt;
+
+  &lt;!-- ۴. کلمات کلیدی وب‌سایت --&gt;
+  &lt;meta name="keywords" content="آموزش اچ‌تی‌ام‌ال, طراحی سایت, فرانت اند"&gt;
+
+  &lt;!-- ۵. افزودن آیکون کوچک وب‌سایت در بالای تب مرورگر --&gt;
+  &lt;link rel="icon" type="image/x-icon" href="favicon.ico"&gt;
+
+  &lt;!-- ۶. عنوان اصلی تب مرورگر --&gt;
+  &lt;title&gt;دوره طلایی طراحی وب&lt;/title&gt;
+&lt;/head&gt;</code></pre>
+
+        <div class="note-box" style="background-color: #f1f5f9; border-right-color: #64748b;">
+          <strong>پایان کارگاه مقدماتی:</strong> اکنون با ترکیب این ده فصل، شما بر اساسی‌ترین، کاربردی‌ترین و مدرن‌ترین تگ‌های پایه‌ای فرانت‌اند به طور کامل مسلط شده‌اید و آماده ورود به دنیای شگفت‌انگیز CSS جهت استایل‌دهی به این تگ‌ها هستید.
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+</body>
+</html>
