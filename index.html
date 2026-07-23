@@ -18,6 +18,8 @@
     font-family: 'Vazirmatn', sans-serif;
 }
 
+body.modal-open{overflow:hidden;}
+
 body {
     background: #070708;
     background-image: radial-gradient(circle at 50% -20%, #261f13 0%, #070708 70%);
@@ -208,21 +210,27 @@ h1 {
 }
 
 .video-box{
+    opacity:0;
+
     width:min(1000px,92vw);
     background:#111114;
     border:1px solid rgba(212,175,55,.18);
     border-radius:22px;
     overflow:hidden;
     box-shadow:0 30px 80px rgba(0,0,0,.6);
-    transform:scale(.9);
+    transform:translateY(40px) scale(.92);
     transition:.35s;
 }
 
 .video-modal.show .video-box{
-    transform:scale(1);
+    opacity:1;
+    opacity:0;
+
+    transform:translateY(0) scale(1);
 }
 
 .video-header{
+    background:linear-gradient(90deg,rgba(212,175,55,.12),rgba(255,255,255,.02));
     display:flex;
     justify-content:space-between;
     align-items:center;
@@ -249,6 +257,7 @@ h1 {
 }
 
 .close-video:hover{
+    transform:rotate(90deg);
     background:#d4af37;
     color:#000;
 }
@@ -271,7 +280,9 @@ h1 {
 }
 
 @media(max-width: 700px) {
-    body { padding: 40px 15px; }
+    body.modal-open{overflow:hidden;}
+
+body { padding: 40px 15px; }
     h1 { font-size: 26px; margin-bottom: 40px; }
     .lesson {
         flex-direction: column;
@@ -372,7 +383,7 @@ h1 {
                 'پروژه BMI',
                 'https://mega.nz/embed/HswxiJrb#5XXhaTN6Owy_dwxfPE9q88wZ7gt5kpvyNJFcauHf-zM!1a'
                 );return false;">
-                مشاهده آموزش
+                مشاهده
                 </a>
             </div>
         </div>
@@ -498,51 +509,6 @@ h1 {
     </div>
 </div>
 
-<script>
-document.querySelectorAll(".chapter-title").forEach(item => {
-    item.onclick = () => {
-        item.parentElement.classList.toggle("open");
-    }
-});
-
-const modal = document.getElementById("videoModal");
-const frame = document.getElementById("videoFrame");
-const title = document.getElementById("videoTitle");
-
-function openVideo(videoTitle, url){
-
-    title.textContent = videoTitle;
-
-    frame.src = url;
-
-    modal.classList.add("show");
-
-    document.body.style.overflow = "hidden";
-}
-
-function closeVideo(){
-
-    modal.classList.remove("show");
-
-    frame.src = "";
-
-    document.body.style.overflow = "";
-}
-
-modal.addEventListener("click",e=>{
-
-    if(e.target===modal){
-
-        closeVideo();
-
-    }
-
-});
-    
-</script>
-
-</body>
-
 <div class="video-modal" id="videoModal">
 
     <div class="video-box">
@@ -566,5 +532,56 @@ modal.addEventListener("click",e=>{
     </div>
 
 </div>
+
+<script>
+document.querySelectorAll(".chapter-title").forEach(item => {
+    item.onclick = () => {
+        item.parentElement.classList.toggle("open");
+    }
+});
+
+const modal = document.getElementById("videoModal");
+const frame = document.getElementById("videoFrame");
+const title = document.getElementById("videoTitle");
+
+function openVideo(videoTitle, url){
+
+    title.textContent = videoTitle;
+
+    frame.src = url;
+
+    modal.classList.add("show");
+
+    document.body.classList.add("modal-open");
+}
+
+function closeVideo(){
+
+    modal.classList.remove("show");
+
+    frame.src = "";
+
+    document.body.classList.remove("modal-open");
+}
+
+modal.addEventListener("click",e=>{
+
+    if(e.target===modal){
+
+        closeVideo();
+
+    }
+
+});
+
+document.addEventListener("keydown",(e)=>{
+ if(e.key==="Escape") closeVideo();
+});
+
+</script>
+
+</body>
+
+
     
 </html>
