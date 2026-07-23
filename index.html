@@ -18,7 +18,9 @@
     font-family: 'Vazirmatn', sans-serif;
 }
 
-body.modal-open{overflow:hidden;}
+body.modal-open {
+    overflow: hidden;
+}
 
 body {
     background: #070708;
@@ -158,6 +160,7 @@ h1 {
     font-weight: 700;
     box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
     transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .lesson a:hover {
@@ -166,15 +169,12 @@ h1 {
     filter: brightness(1.1);
 }
 
-.badge {
-    background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
-    color: #fff;
-    padding: 2px 10px;
-    border-radius: 6px;
-    font-size: 11px;
-    font-weight: 700;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    animation: pulse 2.5s infinite;
+.lesson a.disabled {
+    background: #27272a;
+    color: #71717a;
+    box-shadow: none;
+    cursor: not-allowed;
+    pointer-events: none;
 }
 
 .chapter.open .lessons {
@@ -186,103 +186,89 @@ h1 {
     transform: rotate(180deg);
 }
 
-.video-modal{
+.video-modal {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,.82);
+    background: rgba(0, 0, 0, .82);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    opacity:0;
-    visibility:hidden;
-
-    transition:.35s;
-    z-index:9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .35s ease;
+    z-index: 9999;
 }
 
-.video-modal.show{
-    opacity:1;
-    visibility:visible;
+.video-modal.show {
+    opacity: 1;
+    visibility: visible;
 }
 
-.video-box{
-    opacity:0;
-
-    width:min(1000px,92vw);
-    background:#111114;
-    border:1px solid rgba(212,175,55,.18);
-    border-radius:22px;
-    overflow:hidden;
-    box-shadow:0 30px 80px rgba(0,0,0,.6);
-    transform:translateY(40px) scale(.92);
-    transition:.35s;
+.video-box {
+    opacity: 0;
+    width: min(1000px, 92vw);
+    background: #111114;
+    border: 1px solid rgba(212, 175, 55, .18);
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, .6);
+    transform: translateY(40px) scale(.92);
+    transition: all .35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.video-modal.show .video-box{
-    opacity:1;
-    opacity:0;
-
-    transform:translateY(0) scale(1);
+.video-modal.show .video-box {
+    opacity: 1;
+    transform: translateY(0) scale(1);
 }
 
-.video-header{
-    background:linear-gradient(90deg,rgba(212,175,55,.12),rgba(255,255,255,.02));
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:18px 24px;
-    border-bottom:1px solid rgba(255,255,255,.06);
-    background:rgba(255,255,255,.02);
+.video-header {
+    background: rgba(255, 255, 255, .02);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, .06);
 }
 
-.video-header h3{
-    font-size:18px;
-    color:#ffe082;
+.video-header h3 {
+    font-size: 18px;
+    color: #ffe082;
 }
 
-.close-video{
-    width:42px;
-    height:42px;
-    border:none;
-    border-radius:50%;
-    cursor:pointer;
-    font-size:22px;
-    background:#1b1b1d;
-    color:#fff;
-    transition:.3s;
+.close-video {
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 22px;
+    background: #1b1b1d;
+    color: #fff;
+    transition: .3s;
 }
 
-.close-video:hover{
-    transform:rotate(90deg);
-    background:#d4af37;
-    color:#000;
+.close-video:hover {
+    transform: rotate(90deg);
+    background: #d4af37;
+    color: #000;
 }
 
-.video-body{
-    padding:20px;
+.video-body {
+    padding: 20px;
 }
 
-.video-body iframe{
-    width:100%;
-    aspect-ratio:16/9;
-    border:none;
-    border-radius:14px;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); opacity: 0.9; }
-    50% { transform: scale(1.04); opacity: 1; filter: drop-shadow(0 0 8px rgba(220, 38, 38, 0.5)); }
-    100% { transform: scale(1); opacity: 0.9; }
+.video-body iframe {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border: none;
+    border-radius: 14px;
+    background: #000;
 }
 
 @media(max-width: 700px) {
-    body.modal-open{overflow:hidden;}
-
-body { padding: 40px 15px; }
+    body { padding: 40px 15px; }
     h1 { font-size: 26px; margin-bottom: 40px; }
     .lesson {
         flex-direction: column;
@@ -296,59 +282,59 @@ body { padding: 40px 15px; }
     .lesson::after { display: none; }
 }
 </style>
-
 </head>
 <body>
 
 <div class="container">
+    <h1>آموزش پروژه محور React Native</h1>
 
-    <h1>آموزش پروژه محور react native</h1>
-
+    <!-- ۱. جزوات -->
     <div class="chapter">
         <div class="chapter-title">
             <span>جزوات</span>
             <span class="arrow">▼</span>
         </div>
-            <div class="lessons">
-                <div class="lesson">
-                    <span>جزوه javaScript</span>
-                    <a href="https://drive.google.com/file/d/1-NmmeeGbh4SO3SUcbz87K5Z12Xa1eovW/view?usp=drive_link">مشاهده</a>
-                </div>
-                <div class="lesson">
-                    <span>جزوه HTML</span>
-                    <a href="https://drive.google.com/file/d/15I1yA77yxj9ETz3NrtQorVAKvbHwEwNT/view?usp=drive_link">مشاهده</a>
-                </div>
-               <div class="lesson">
-                    <span>آموزش تعاملی HTML</span>
-                    <a href="./assets/html.html">مشاهده</a>
-                </div>
-                <div class="lesson">
-                    <span>جزوه CSS</span>
-                    <a href="https://drive.google.com/file/d/1CWI7p-mqsk2ZyyT1ixOohkxaHswRF87q/view?usp=drive_link">مشاهده</a>
-                </div>
-                <div class="lesson">
-                    <span>آموزش تعاملی Grid</span>
-                    <a href="./assets/grid.html">مشاهده</a>
-                </div>
-                <div class="lesson">
-                    <span>آموزش تعاملی Flexbox</span>
-                    <a href="./assets/flexbox.html">مشاهده</a>
-                </div>
-                <div class="lesson">
-                    <span>جزوه javaScript In Web</span>
-                    <a href="https://drive.google.com/file/d/1x1Qz0IUvbFIY0v1QkclpHGBeWPcciATH/view?usp=drive_link">مشاهده</a>
-                </div>
-                <div class="lesson">
-                    <span>جزوه React</span>
-                    <a href="https://drive.google.com/file/d/1lX6D6OP3s_O_xWxm6N5wRC5OeCxJLchv/view?usp=drive_link">مشاهده</a>
-                </div>
-                <div class="lesson">
-                    <span>جزوه ReactNative</span>
-                    <a href="https://drive.google.com/file/d/1AYHQkwj8fpKv1NY9P0b9BSHK1Zb-OHjc/view?usp=drive_link">مشاهده</a>
-                </div>
+        <div class="lessons">
+            <div class="lesson">
+                <span>جزوه JavaScript</span>
+                <a href="https://drive.google.com/file/d/1-NmmeeGbh4SO3SUcbz87K5Z12Xa1eovW/view?usp=drive_link" target="_blank">مشاهده</a>
+            </div>
+            <div class="lesson">
+                <span>جزوه HTML</span>
+                <a href="https://drive.google.com/file/d/15I1yA77yxj9ETz3NrtQorVAKvbHwEwNT/view?usp=drive_link" target="_blank">مشاهده</a>
+            </div>
+            <div class="lesson">
+                <span>آموزش تعاملی HTML</span>
+                <a href="./assets/html.html">مشاهده</a>
+            </div>
+            <div class="lesson">
+                <span>جزوه CSS</span>
+                <a href="https://drive.google.com/file/d/1CWI7p-mqsk2ZyyT1ixOohkxaHswRF87q/view?usp=drive_link" target="_blank">مشاهده</a>
+            </div>
+            <div class="lesson">
+                <span>آموزش تعاملی Grid</span>
+                <a href="./assets/grid.html">مشاهده</a>
+            </div>
+            <div class="lesson">
+                <span>آموزش تعاملی Flexbox</span>
+                <a href="./assets/flexbox.html">مشاهده</a>
+            </div>
+            <div class="lesson">
+                <span>جزوه JavaScript In Web</span>
+                <a href="https://drive.google.com/file/d/1x1Qz0IUvbFIY0v1QkclpHGBeWPcciATH/view?usp=drive_link" target="_blank">مشاهده</a>
+            </div>
+            <div class="lesson">
+                <span>جزوه React</span>
+                <a href="https://drive.google.com/file/d/1lX6D6OP3s_O_xWxm6N5wRC5OeCxJLchv/view?usp=drive_link" target="_blank">مشاهده</a>
+            </div>
+            <div class="lesson">
+                <span>جزوه React Native</span>
+                <a href="https://drive.google.com/file/d/1AYHQkwj8fpKv1NY9P0b9BSHK1Zb-OHjc/view?usp=drive_link" target="_blank">مشاهده</a>
+            </div>
         </div>
     </div>
 
+    <!-- ۲. پروژه موزیک پلیر -->
     <div class="chapter">
         <div class="chapter-title">
             <span>پروژه طراحی موزیک پلیر</span>
@@ -357,38 +343,34 @@ body { padding: 40px 15px; }
         <div class="lessons">
             <div class="lesson">
                 <span>گیت هاب پروژه</span>
-                <a href="#">مشاهده</a>
+                <a class="disabled">به‌زودی</a>
             </div>
             <div class="lesson">
                 <span>ویدیو آموزش پروژه محور</span>
-                <a href="#">مشاهده</a>
+                <a class="disabled">به‌زودی</a>
             </div>
         </div>
     </div>
 
+    <!-- ۳. پروژه شاخص توده بدنی -->
     <div class="chapter">
         <div class="chapter-title">
-            <span>پروژه شاخص توده بدنی</span>
+            <span>پروژه شاخص توده بدنی (BMI)</span>
             <span class="arrow">▼</span>
         </div>
         <div class="lessons">
             <div class="lesson">
                 <span>گیت هاب پروژه</span>
-                <a href="https://github.com/anvarimajd/BMI-Calculator">مشاهده</a>
+                <a href="https://github.com/anvarimajd/BMI-Calculator" target="_blank">مشاهده</a>
             </div>
             <div class="lesson">
                 <span>ویدیو آموزش پروژه محور</span>
-                <a href="#"
-                onclick="openVideo(
-                'پروژه BMI',
-                'https://mega.nz/embed/HswxiJrb#5XXhaTN6Owy_dwxfPE9q88wZ7gt5kpvyNJFcauHf-zM!1a'
-                );return false;">
-                مشاهده
-                </a>
+                <a onclick="openVideo('پروژه BMI', 'https://mega.nz/embed/HswxiJrb#5XXhaTN6Owy_dwxfPE9q88wZ7gt5kpvyNJFcauHf-zM!1a')">مشاهده</a>
             </div>
         </div>
     </div>
 
+    <!-- ۴. پروژه نمایش آب و هوا -->
     <div class="chapter">
         <div class="chapter-title">
             <span>پروژه نمایش آب و هوا</span>
@@ -397,16 +379,17 @@ body { padding: 40px 15px; }
         <div class="lessons">
             <div class="lesson">
                 <span>گیت هاب پروژه</span>
-                <a href="#">مشاهده</a>
+                <a class="disabled">به‌زودی</a>
             </div>
             <div class="lesson">
                 <span>ویدیو آموزش پروژه محور</span>
-                <a href="#">مشاهده</a>
+                <a class="disabled">به‌زودی</a>
             </div>
         </div>
     </div>
 
-        <div class="chapter">
+    <!-- ۵. پروژه سفارش غذا -->
+    <div class="chapter">
         <div class="chapter-title">
             <span>پروژه سفارش غذا</span>
             <span class="arrow">▼</span>
@@ -414,16 +397,17 @@ body { padding: 40px 15px; }
         <div class="lessons">
             <div class="lesson">
                 <span>گیت هاب پروژه</span>
-                <a href="#">مشاهده</a>
+                <a class="disabled">به‌زودی</a>
             </div>
             <div class="lesson">
                 <span>ویدیو آموزش پروژه محور</span>
-                <a href="#">مشاهده</a>
+                <a class="disabled">به‌زودی</a>
             </div>
         </div>
     </div>
 
-        <div class="chapter">
+    <!-- ۶. پروژه وبلاگ -->
+    <div class="chapter">
         <div class="chapter-title">
             <span>پروژه وبلاگ</span>
             <span class="arrow">▼</span>
@@ -431,16 +415,17 @@ body { padding: 40px 15px; }
         <div class="lessons">
             <div class="lesson">
                 <span>گیت هاب پروژه</span>
-                <a href="#">مشاهده</a>
+                <a class="disabled">به‌زودی</a>
             </div>
             <div class="lesson">
                 <span>ویدیو آموزش پروژه محور</span>
-                <a href="#">مشاهده</a>
+                <a class="disabled">به‌زودی</a>
             </div>
         </div>
     </div>
 
-        <div class="chapter">
+    <!-- ۷. پروژه طراحی فروشگاه -->
+    <div class="chapter">
         <div class="chapter-title">
             <span>پروژه طراحی فروشگاه</span>
             <span class="arrow">▼</span>
@@ -448,147 +433,126 @@ body { padding: 40px 15px; }
         <div class="lessons">
             <div class="lesson">
                 <span>گیت هاب پروژه</span>
-                <a href="#">مشاهده</a>
+                <a class="disabled">به‌زودی</a>
             </div>
             <div class="lesson">
                 <span>ویدیو آموزش پروژه محور</span>
-                <a href="#">مشاهده</a>
+                <a class="disabled">به‌زودی</a>
             </div>
         </div>
     </div>
 
-        <div class="chapter">
+    <!-- ۸. پروژه فروشگاه سطح ۱ -->
+    <div class="chapter">
         <div class="chapter-title">
-            <span>پروژه فروشگاه سطح 1</span>
+            <span>پروژه فروشگاه سطح ۱</span>
             <span class="arrow">▼</span>
         </div>
         <div class="lessons">
             <div class="lesson">
                 <span>گیت هاب پروژه</span>
-                <a href="#">مشاهده</a>
+                <a class="disabled">به‌زودی</a>
             </div>
             <div class="lesson">
                 <span>ویدیو آموزش پروژه محور</span>
-                <a href="#">مشاهده</a>
+                <a class="disabled">به‌زودی</a>
             </div>
         </div>
     </div>
 
-        <div class="chapter">
+    <!-- ۹. پروژه فروشگاه سطح ۲ -->
+    <div class="chapter">
         <div class="chapter-title">
-            <span>پروژه فروشگاه سطح 2</span>
+            <span>پروژه فروشگاه سطح ۲</span>
             <span class="arrow">▼</span>
         </div>
         <div class="lessons">
             <div class="lesson">
                 <span>گیت هاب پروژه</span>
-                <a href="#">مشاهده</a>
+                <a class="disabled">به‌زودی</a>
             </div>
             <div class="lesson">
                 <span>ویدیو آموزش پروژه محور</span>
-                <a href="#">مشاهده</a>
+                <a class="disabled">به‌زودی</a>
             </div>
         </div>
     </div>
 
-        <div class="chapter">
+    <!-- ۱۰. پروژه فروشگاه سطح ۳ -->
+    <div class="chapter">
         <div class="chapter-title">
-            <span>پروژه فروشگاه سطح 3</span>
+            <span>پروژه فروشگاه سطح ۳</span>
             <span class="arrow">▼</span>
         </div>
         <div class="lessons">
             <div class="lesson">
                 <span>گیت هاب پروژه</span>
-                <a href="#">مشاهده</a>
+                <a class="disabled">به‌زودی</a>
             </div>
             <div class="lesson">
                 <span>ویدیو آموزش پروژه محور</span>
-                <a href="#">مشاهده</a>
+                <a class="disabled">به‌زودی</a>
             </div>
         </div>
     </div>
+
 </div>
 
+<!-- مدال نمایش ویدیو -->
 <div class="video-modal" id="videoModal">
-
     <div class="video-box">
-
         <div class="video-header">
             <h3 id="videoTitle">آموزش پروژه</h3>
-
-            <button class="close-video" onclick="closeVideo()">
-                ✕
-            </button>
+            <button class="close-video" onclick="closeVideo()">✕</button>
         </div>
-
         <div class="video-body">
-            <iframe
-                id="videoFrame"
-                allowfullscreen
-                allow="autoplay">
-            </iframe>
+            <iframe id="videoFrame" allowfullscreen allow="autoplay"></iframe>
         </div>
-
     </div>
-
 </div>
 
 <script>
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    document.querySelectorAll(".chapter-title").forEach(item => {
-    item.onclick = () => {
-        item.parentElement.classList.toggle("open");
-    }
-});
-
-const modal = document.getElementById("videoModal");
-const frame = document.getElementById("videoFrame");
-const title = document.getElementById("videoTitle");
-
-function openVideo(videoTitle, url){
+function openVideo(videoTitle, url) {
+    const modal = document.getElementById("videoModal");
+    const frame = document.getElementById("videoFrame");
+    const title = document.getElementById("videoTitle");
 
     title.textContent = videoTitle;
-
     frame.src = url;
 
     modal.classList.add("show");
-
     document.body.classList.add("modal-open");
 }
 
-function closeVideo(){
+function closeVideo() {
+    const modal = document.getElementById("videoModal");
+    const frame = document.getElementById("videoFrame");
 
     modal.classList.remove("show");
-
     frame.src = "";
-
     document.body.classList.remove("modal-open");
 }
 
-modal.addEventListener("click",e=>{
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".chapter-title").forEach(item => {
+        item.onclick = () => {
+            item.parentElement.classList.toggle("open");
+        };
+    });
 
-    if(e.target===modal){
+    const modal = document.getElementById("videoModal");
 
-        closeVideo();
+    modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            closeVideo();
+        }
+    });
 
-    }
-
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeVideo();
+    });
 });
-
-document.addEventListener("keydown",(e)=>{
- if(e.key==="Escape") closeVideo();
-});
-
-});
-    
-
-
 </script>
 
 </body>
-
-
-    
 </html>
