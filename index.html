@@ -184,6 +184,86 @@ h1 {
     transform: rotate(180deg);
 }
 
+.video-modal{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.82);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.35s;
+    z-index:9999;
+}
+
+.video-modal.show{
+    opacity:1;
+    visibility:visible;
+}
+
+.video-box{
+    width:min(1000px,92vw);
+    background:#111114;
+    border:1px solid rgba(212,175,55,.18);
+    border-radius:22px;
+    overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,.6);
+    transform:scale(.9);
+    transition:.35s;
+}
+
+.video-modal.show .video-box{
+    transform:scale(1);
+}
+
+.video-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 24px;
+    border-bottom:1px solid rgba(255,255,255,.06);
+    background:rgba(255,255,255,.02);
+}
+
+.video-header h3{
+    font-size:18px;
+    color:#ffe082;
+}
+
+.close-video{
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:22px;
+    background:#1b1b1d;
+    color:#fff;
+    transition:.3s;
+}
+
+.close-video:hover{
+    background:#d4af37;
+    color:#000;
+}
+
+.video-body{
+    padding:20px;
+}
+
+.video-body iframe{
+    width:100%;
+    aspect-ratio:16/9;
+    border:none;
+    border-radius:14px;
+}
+
 @keyframes pulse {
     0% { transform: scale(1); opacity: 0.9; }
     50% { transform: scale(1.04); opacity: 1; filter: drop-shadow(0 0 8px rgba(220, 38, 38, 0.5)); }
@@ -283,11 +363,17 @@ h1 {
         <div class="lessons">
             <div class="lesson">
                 <span>گیت هاب پروژه</span>
-                <a href="#">مشاهده</a>
+                <a href="https://github.com/anvarimajd/BMI-Calculator">مشاهده</a>
             </div>
             <div class="lesson">
                 <span>ویدیو آموزش پروژه محور</span>
-                <a href="#">مشاهده</a>
+                <a href="#"
+                onclick="openVideo(
+                'پروژه BMI',
+                'https://mega.nz/embed/HswxiJrb#5XXhaTN6Owy_dwxfPE9q88wZ7gt5kpvyNJFcauHf-zM!1a'
+                );return false;">
+                مشاهده آموزش
+                </a>
             </div>
         </div>
     </div>
@@ -418,7 +504,67 @@ document.querySelectorAll(".chapter-title").forEach(item => {
         item.parentElement.classList.toggle("open");
     }
 });
+
+const modal = document.getElementById("videoModal");
+const frame = document.getElementById("videoFrame");
+const title = document.getElementById("videoTitle");
+
+function openVideo(videoTitle, url){
+
+    title.textContent = videoTitle;
+
+    frame.src = url;
+
+    modal.classList.add("show");
+
+    document.body.style.overflow = "hidden";
+}
+
+function closeVideo(){
+
+    modal.classList.remove("show");
+
+    frame.src = "";
+
+    document.body.style.overflow = "";
+}
+
+modal.addEventListener("click",e=>{
+
+    if(e.target===modal){
+
+        closeVideo();
+
+    }
+
+});
+    
 </script>
 
 </body>
+
+<div class="video-modal" id="videoModal">
+
+    <div class="video-box">
+
+        <div class="video-header">
+            <h3 id="videoTitle">آموزش پروژه</h3>
+
+            <button class="close-video" onclick="closeVideo()">
+                ✕
+            </button>
+        </div>
+
+        <div class="video-body">
+            <iframe
+                id="videoFrame"
+                allowfullscreen
+                allow="autoplay">
+            </iframe>
+        </div>
+
+    </div>
+
+</div>
+    
 </html>
