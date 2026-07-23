@@ -534,7 +534,10 @@ body { padding: 40px 15px; }
 </div>
 
 <script>
-document.querySelectorAll(".chapter-title").forEach(item => {
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    document.querySelectorAll(".chapter-title").forEach(item => {
     item.onclick = () => {
         item.parentElement.classList.toggle("open");
     }
@@ -577,6 +580,10 @@ modal.addEventListener("click",e=>{
 document.addEventListener("keydown",(e)=>{
  if(e.key==="Escape") closeVideo();
 });
+
+});
+    
+
 
 </script>
 
